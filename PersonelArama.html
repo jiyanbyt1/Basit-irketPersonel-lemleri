@@ -1,0 +1,80 @@
+<?php
+     include("baglan.php");
+?>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>PACİFİC LTD. ŞTİ. PERSONEL ARAMA</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+<div class="col-md-6">
+<form action="" method="post">
+    
+    <table class="table">
+        
+        <tr>
+            <td>id:</td>
+            <td><input type="text" name="id" class="fstat" ></td>
+ 
+		
+        <tr>
+            <td></td>
+            <td><input class="btn btn-primary"  type="submit" value="PERSONEL ID ARA"></td>
+		
+
+
+    </table>
+<td><input onclick="location.href='http://localhost:81/anasayfa.php'" class="btn btn-primary"  type="button" name="button2" id="button2" value="ANASAYFA"></td>
+</form>
+</div>
+<div class="col-md-7">
+<table class="table">
+    <tr>
+        <th>id:</th>
+        <th>Personel Adı:</th>
+        <th>Personel Soyadi:</th>
+        <th>Personel Numarasi:</th>
+        <th></th>
+    </tr>
+<?php
+
+   if($_POST){
+   @$arama=$_POST['id'];
+  if($arama==""){
+
+	   echo "Lütfen Aranacak Personel id Numarasını giriniz!!!";
+   
+   }
+   else{
+	   $bul=mysql_query("select * from personelkayit where id like '%".$arama."%'");
+   
+   
+   while($oku=mysql_fetch_array($bul)){
+
+?>
+
+   <tr>
+        <td><?php   echo $oku['id'] ; ?></td>
+        <td><?php echo $oku['adi']; ?></td>
+        <td><?php echo $oku['soyadi']; ?></td>
+		<td><?php echo $oku['numarasi']; ?></td>
+		
+    </tr>
+	
+	
+<?php
+}
+   }
+   }
+?>
+	 
+
+
+</table>
+</div>
+</div>
+</body>
+</html>

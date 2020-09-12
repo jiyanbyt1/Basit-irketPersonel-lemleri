@@ -1,0 +1,17 @@
+<?php
+$host="localhost";
+$giris="root";
+$girissifre="";
+$veritabani="pacific";
+$tablo="personelkayit";
+
+$baglanti=mysql_connect($host,$giris,$girissifre);
+	if($baglanti){
+		echo "<h1>MySql sunucusu ile baglanti kurdunuz.";
+	}else{
+		echo "MySql ile bağlantı kurulamadı!!! Hata Kodu:";
+		mysql_error();
+	}
+    	@mysql_select_db($veritabani,$baglanti)
+	   or die ("veritabanına bağlanamadık.")
+?>

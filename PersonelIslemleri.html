@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>PACİFİC LTD. ŞTİ PERSONEL İŞLEMLERİ</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+<div class="col-md-6">
+<form action="" method="post">
+    <table class="table">
+        
+        <tr>
+            <td>id:</td>
+            <td><input type="text" name="id" class="fstat" ></td>
+        </tr>
+
+        <tr>
+            <td>Personel adı:</td>
+            <td><input name="adi" class="form-control" ></td>
+        </tr>
+		<tr>
+            <td>Personel soyadı:</td>
+            <td><input name="soyadi" class="form-control" ></td>
+        </tr>
+		
+		 <tr>
+            <td>Personel numarası:</td>
+            <td><input name="numarasi" class="form-control" ></td>
+        </tr>
+		
+		
+		
+		
+
+        <tr>
+            <td></td>
+            <td><input class="btn btn-primary"  type="submit" value="PERSONEL EKLE"></td>
+			
+        </tr>
+
+    </table>
+ <td><input onclick="location.href='http://localhost:81/anasayfa.php'" class="btn btn-primary"  type="button" name="button2" id="button2" value="ANA SAYFA"></td>
+</form>
+
+<?php
+
+include ("baglan.php");
+if($_POST){
+ 
+    $ID=$_POST['id'];
+	$isim=$_POST['adi'];
+	$soyad=$_POST['soyadi'];
+	$no=$_POST['numarasi'];
+	
+	$sqlekle=mysql_query("insert into personelkayit(adi,soyadi,numarasi) values('$isim','$soyad','$no')");
+
+	if ($sqlekle==0){
+    echo "Eklenemedi, kontrol ediniz";
+	}
+
+	else{
+    echo "Başarıyla eklendi";
+    }
+}
+
+
+?>
+
+
+
+</div>
+<div class="col-md-7">
+<table class="table">
+    <tr>
+        <th>id:</th>
+        <th>Personel Adı:</th>
+        <th>Personel Soyadi:</th>
+        <th>Personel Numarasi:</th>
+        <th></th>
+    </tr>
+
+	<?php
+
+
+$oku=mysql_query("select * from personelkayit order by id DESC ");
+
+
+while($baglan=mysql_fetch_array($oku)){
+    $id=$baglan['id'];
+    $adi=$baglan['adi'];
+    $soyadi=$baglan['soyadi'];
+    $numarasi=$baglan['numarasi'];
+	
+
+
+?>
+
+    
+
+	    <tr>
+        <td><?php echo $id;  ?></td>
+        <td><?php echo $adi; ?></td>
+        <td><?php echo $soyadi; ?></td>
+		<td><?php echo $numarasi; ?></td>
+		<td><a href="PersonelDuzenle.php?id=<?php echo $id; ?>" class="btn btn-primary">Düzenle</a></td>
+        <td><a href="PersonelIslemleri.php?id=<?php echo $id; ?>" class="btn btn-danger">Sil</a></td>
+    </tr>
+	
+<?php
+}
+?>
+
+
+</table>
+</div>
+</div>
+</body>
+</html>
+<?php
+
+ if($_GET){
+	
+$ID = $_GET["id"];
+
+$delete = mysql_query("delete from personelkayit where id='$ID'");
+
+
+if ($delete)
+{
+	echo "Silme işlemi başarılı";
+
+}
+else
+{
+    echo "Hata";
+}
+ }
+?>
+
+
+
+
